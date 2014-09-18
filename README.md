@@ -5,4 +5,5 @@ Application de gestion des stages de BTS
 Alexandre jaunasse
 Manuel verdatre
 Mathieu Lesage
+Maxime Nagel
 test commit
