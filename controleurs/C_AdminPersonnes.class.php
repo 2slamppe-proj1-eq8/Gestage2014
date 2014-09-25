@@ -17,7 +17,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $pdo = $daoPers->getPdo();
        
         // Mémoriser la liste des spécialités disponibles
-        $daoSpecialite = new M_DaoLesDonnesCreationUtilisateur();
+        $daoSpecialite = new M_DaoSpecialite();
         $daoSpecialite->setPdo($pdo);
         $this->vue->ecrireDonnee('lesSpecialites', $daoSpecialite->getAll());
                
@@ -39,7 +39,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         /*fin modif*/
         $this->vue->titreVue = "Validation cr&eacute;ation de l'utilisateur";
        
-        $utilisateur = new M_LesDonneesCreationUtilisateur();
+        $utilisateur = new M_DaoLesDonnesCreationUtilisateur();
         // préparer la liste des paramètres
         $lesParametres = array();
       
