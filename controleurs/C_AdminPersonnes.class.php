@@ -35,13 +35,11 @@ class C_AdminPersonnes extends C_ControleurGenerique {
     //validation de création d'utilisateur 
     function validationcreerPersonne(){
         /*Modification, instanciation de la vue */
-        $this->vue = new V_Vue("../vues/templates/template.inc.php") ;
+   
         $daoPers = new M_DaoPersonne();
         $daoPers->connecter();
-       
-       
-    
-      $id= $_POST['id'] ;
+   
+     
       $option= $_POST['option'] ;
       $role= $_POST['role'] ;
       $civilite= $_POST['civilite'] ;
@@ -55,18 +53,15 @@ class C_AdminPersonnes extends C_ControleurGenerique {
       $login= $_POST['id'] ;
       $mdp= $_POST['mdp'] ;
       
-       $newRole=New M_DaoRole($role, null,null) ;
-       $role = $newRole -> objetVersEnregistrement($role) ;
-       var_dump($role) ; die() ;
+       $newRole=New M_Role($role, null,null) ;
+  
+       $pers = new M_Personne(null,$option,$newRole,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
+         $daoPers->getPdo() ;
+         $daoPers->insert($pers) ;
 
-       $pers = new M_Personne($id,$option,$role,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
-        //$pers=$daoPers->objetVersEnregistrement($pers);
-         //$daoPers ->insert($pers) ;
-        var_dump($pers) ;
-        die() ;
  
-         
-        $this->vue->afficher();
+       
+        
     }
     
 }
