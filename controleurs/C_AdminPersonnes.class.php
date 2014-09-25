@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 
 /**
@@ -17,7 +17,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $pdo = $daoPers->getPdo();
        
         // Mémoriser la liste des spécialités disponibles
-        $daoSpecialite = new M_DaoSpecialite();
+        $daoSpecialite = new M_DaoLesDonnesCreationUtilisateur();
         $daoSpecialite->setPdo($pdo);
         $this->vue->ecrireDonnee('lesSpecialites', $daoSpecialite->getAll());
                
@@ -34,10 +34,15 @@ class C_AdminPersonnes extends C_ControleurGenerique {
     
     //validation de création d'utilisateur 
     function validationcreerPersonne(){
+        /*Modification, instanciation de la vue */
+        $this->vue = new V_Vue("../vues/templates/template.inc.php") ;
+        /*fin modif*/
         $this->vue->titreVue = "Validation cr&eacute;ation de l'utilisateur";
+       
         $utilisateur = new M_LesDonneesCreationUtilisateur();
         // préparer la liste des paramètres
         $lesParametres = array();
+      
         $lesLogin = new M_ListeLogin();
         $countLog="";
         $countLog= $lesLogin->getCount($_POST["login"]);
@@ -65,6 +70,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
         $lesParametres[12] = sha1($_POST["mdp"]);
           
         $ok = $utilisateur->insert($lesParametres);
+        var_dump($lesParametres) ;
       }else{
           $msg=' Login déjà utilisé';
           $ok=0;

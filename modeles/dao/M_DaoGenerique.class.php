@@ -73,6 +73,7 @@ abstract class M_DaoGenerique {
             echo get_class($this) . ' - '.__METHOD__ . ' : '. $e->getMessage();
         }
         return $retour;
+        debug_query($sql);
     }
 
     /**
