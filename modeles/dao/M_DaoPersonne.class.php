@@ -244,29 +244,51 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $retour;
     }
     
-    function verif($row, $objet) 
+    function verif($row1, $row2, $objet1, $objet2) 
     {
         $retour = null ;
-        $ok=1 ;
+        $message = null ;
+        $tab = array('ok'=>1,
+                     'message'=>''
+            ) ;
         try 
         {
-            $sql = 'SELECT '.$row.' FROM '.$this->nomTable.' WHERE '.$row.'="'.$objet.'"' ;
-       
+           $sql = 'SELECT '.$row1.' FROM '.$this->nomTable.' WHERE '.$row1.'="'.$objet1.'"' ;
            $stmt = $this->pdo->prepare($sql);
+         
            $stmt->execute() ;
            $retour = $stmt->fetch(PDO::FETCH_ASSOC);
            if (!empty($retour))
            {
   
-               $ok = 0 ;
+              $tab['ok'] = 0 ;
+              $message= " Erreur : ".$row1." existe déjà" ;
+       
+               
            }
            
-           
+           $sql2 = 'SELECT '.$row2.' FROM '.$this->nomTable.' WHERE '.$row2.'="'.$objet2.'"' ;
+           $stmt2 = $this->pdo->prepare($sql2);
+           $stmt2->execute() ;
+       
+           $retour = $stmt2->fetch(PDO::FETCH_ASSOC);
+            if (!empty($retour))
+           {
+  
+              $tab['ok'] = 0 ;
+              $message .= " Erreur : ".$row2." existe déjà" ;
+               
+           }
+           if ($tab['ok'] == 0) 
+           {
+               $tab['message'] = $message ;
+           }
         } catch (PDOException $e) 
         {
                 echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
-        return $ok ;
+        return $tab ;
+    
     }
 
 }

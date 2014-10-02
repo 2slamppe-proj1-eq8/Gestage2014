@@ -35,10 +35,11 @@ class C_AdminPersonnes extends C_ControleurGenerique {
     //validation de création d'utilisateur 
     function validationcreerPersonne(){
        
-   
+      //INITIALISATION DE LA PERSONNE
       $daoPers = new M_DaoPersonne();
       $daoPers->connecter();
    
+      //INITIALISATION DES VARIABLES
     
       $option= $_POST['option'] ;
       $role= $_POST['role'] ;
@@ -55,27 +56,20 @@ class C_AdminPersonnes extends C_ControleurGenerique {
       
      
      
-      
+      //INSTANCIATION DU ROLE,SPECIALITE ET DE LA PERSONNE
       $newRole=New M_Role($role, null,null) ;
-      
       $newSpec=New M_Specialite($option, null, null) ;
-    
       $pers = new M_Personne(null,$newSpec,$newRole,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
     
-      $verif=$daoPers->verif('adresse_mail', $mail) ;
-      if($verif ==0)
-      {
-          $message = "Erreur : l'adrese email existe déjà, recommencez !" ;
-      }
-      $verif=$daoPers->verif('loginutilisateur', $login) ;
-      if ($verif == 0)
-      {
-          $message .= "Erreur : le login existe déjà, recommencez !" ;
-      }
-       $daoPers->getPdo() ;
+      
+      //VERIFICATION DU MAIL ET DU LOGIN
+      $verif=$daoPers->verif('adresse_mail','loginutilisateur',$mail, $login) ;
     
-       
-       if ($verif !=0)
+   
+       $daoPers->getPdo() ;
+   
+       //SI LE MAIL ET LE LOGIN N'EXISTE PAS, CREATION DE LA PERSONNE
+       if ($verif['ok'] !=0)
        {
         if ($daoPers->insert($pers) == true )
         {
@@ -84,7 +78,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
        }
        else 
        {
-           echo $message  ;
+           echo $verif['message'] ; 
        }
      
     }
