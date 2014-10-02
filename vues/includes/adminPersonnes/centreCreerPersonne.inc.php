@@ -76,7 +76,7 @@
                
                 ?>
                 <label for="option">Specialité :</label>
-            </select>
+            </select>l
 
         </fieldset>
       

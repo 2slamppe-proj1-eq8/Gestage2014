@@ -39,7 +39,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
       $daoPers = new M_DaoPersonne();
       $daoPers->connecter();
    
-     
+    
       $option= $_POST['option'] ;
       $role= $_POST['role'] ;
       $civilite= $_POST['civilite'] ;
@@ -53,16 +53,39 @@ class C_AdminPersonnes extends C_ControleurGenerique {
       $login= $_POST['login'] ;
       $mdp= sha1($_POST['mdp']) ;
       
+     
+     
       
       $newRole=New M_Role($role, null,null) ;
-      $pers = new M_Personne(null,$option,$newRole,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
-         
-       
+      
+      $newSpec=New M_Specialite($option, null, null) ;
+    
+      $pers = new M_Personne(null,$newSpec,$newRole,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
+    
+      $verif=$daoPers->verif('adresse_mail', $mail) ;
+      if($verif ==0)
+      {
+          $message = "Erreur : l'adrese email existe déjà, recommencez !" ;
+      }
+      $verif=$daoPers->verif('loginutilisateur', $login) ;
+      if ($verif == 0)
+      {
+          $message .= "Erreur : le login existe déjà, recommencez !" ;
+      }
        $daoPers->getPdo() ;
+    
+       
+       if ($verif !=0)
+       {
         if ($daoPers->insert($pers) == true )
         {
             header('Location: http://localhost/sites/Gestage2014/public');
-        } 
+        }  
+       }
+       else 
+       {
+           echo $message  ;
+       }
      
     }
 }

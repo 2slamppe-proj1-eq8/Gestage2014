@@ -43,13 +43,23 @@ class M_DaoPersonne extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         // le rôle et la spécialité seront mis à jour séparément
+
         if (!is_null($objetMetier->getRole())) {
             $idRole = $objetMetier->getRole()->getId();
         } else {
             $idRole = 0; // "Autre" (simple visiteur)
         }
+        
+   if (!is_null($objetMetier->getSpecialite())) {
+            $idSpec = $objetMetier->getSpecialite()->getId();
+        } else {
+            $idSpec = 0; // "Autre" (simple visiteur)
+        }
+ 
+       
         $retour = array(
             ':idRole' => $idRole,
+            ':specialite' => $idSpec,
             ':civilite' => $objetMetier->getCivilite(),
             ':nom' => $objetMetier->getNom(),
             ':prenom' => $objetMetier->getPrenom(),
@@ -177,18 +187,23 @@ class M_DaoPersonne extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "CIVILITE,IDROLE,NOM,PRENOM,NUM_TEL,ADRESSE_MAIL,NUM_TEL_MOBILE,";
+            $sql .= "IDSPECIALITE,CIVILITE,IDROLE,NOM,PRENOM,NUM_TEL,ADRESSE_MAIL,NUM_TEL_MOBILE,";
             $sql .= "ETUDES,FORMATION,LOGINUTILISATEUR,MDPUTILISATEUR)  ";
             $sql .= "VALUES (";
-            $sql .= ":civilite, :idRole, :nom, :prenom, :numTel, :mail, :mobile, ";
+            $sql .= ":specialite, :civilite, :idRole, :nom, :prenom, :numTel, :mail, :mobile, ";
             $sql .= ":etudes, :formation, :login, :mdp)";
-//            var_dump($sql);
+            
+          
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
+         
             // préparer la  liste des paramètres, avec l'identifiant en dernier
             $parametres = $this->objetVersEnregistrement($objetMetier);
+        
+           
             // exécuter la requête avec les valeurs des paramètres dans un tableau
             $retour = $queryPrepare->execute($parametres);
+          
 //            debug_query($sql, $parametres);
         } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
@@ -227,6 +242,31 @@ class M_DaoPersonne extends M_DaoGenerique {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;
+    }
+    
+    function verif($row, $objet) 
+    {
+        $retour = null ;
+        $ok=1 ;
+        try 
+        {
+            $sql = 'SELECT '.$row.' FROM '.$this->nomTable.' WHERE '.$row.'="'.$objet.'"' ;
+       
+           $stmt = $this->pdo->prepare($sql);
+           $stmt->execute() ;
+           $retour = $stmt->fetch(PDO::FETCH_ASSOC);
+           if (!empty($retour))
+           {
+  
+               $ok = 0 ;
+           }
+           
+           
+        } catch (PDOException $e) 
+        {
+                echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $ok ;
     }
 
 }
