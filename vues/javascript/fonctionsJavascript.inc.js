@@ -152,8 +152,10 @@ function valider()
     }
 
     if (ok == 1) {
-
-        document.submit();
+        
+      alert("Personne ajoutée !");
+       document.submit();
+       
 
     }
 

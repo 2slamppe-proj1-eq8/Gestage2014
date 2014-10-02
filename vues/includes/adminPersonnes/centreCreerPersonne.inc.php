@@ -79,8 +79,7 @@
             </select>
 
         </fieldset>
-        <input type="submit" value="Creer" onclick=""></input><!-- OnClick éxécutera le JS qui testera tout les champ du formulaire. -->
-        <input type="reset" value="Retour" onclick="">
+      
     </div>
 
 

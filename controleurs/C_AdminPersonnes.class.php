@@ -34,10 +34,10 @@ class C_AdminPersonnes extends C_ControleurGenerique {
     
     //validation de création d'utilisateur 
     function validationcreerPersonne(){
-        /*Modification, instanciation de la vue */
+       
    
-        $daoPers = new M_DaoPersonne();
-        $daoPers->connecter();
+      $daoPers = new M_DaoPersonne();
+      $daoPers->connecter();
    
      
       $option= $_POST['option'] ;
@@ -50,18 +50,21 @@ class C_AdminPersonnes extends C_ControleurGenerique {
       $mail= $_POST['mail'] ;
       $etudes= $_POST['etudes'] ;
       $formation= $_POST['formation'] ;
-      $login= $_POST['id'] ;
-      $mdp= $_POST['mdp'] ;
+      $login= $_POST['login'] ;
+      $mdp= sha1($_POST['mdp']) ;
       
-       $newRole=New M_Role($role, null,null) ;
-  
-       $pers = new M_Personne(null,$option,$newRole,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
-         $daoPers->getPdo() ;
-         $daoPers->insert($pers) ;
-
- 
+      
+      $newRole=New M_Role($role, null,null) ;
+      $pers = new M_Personne(null,$option,$newRole,$civilite,$nom,$prenom,$tel,$mail,$portable,$etudes,$formation,$login,$mdp);
+         
        
-        
+       $daoPers->getPdo() ;
+        if ($daoPers->insert($pers) == true )
+        {
+            header('Location: http://localhost/sites/Gestage2014/public');
+        } 
+     
     }
-    
 }
+    
+
