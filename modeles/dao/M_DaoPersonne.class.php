@@ -244,21 +244,35 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $retour;
     }
     
+ /**
+  * Verif de mail et login lors de la création d'une personne
+  * @param type $row1
+  * @param type $row2
+  * @param type $objet1
+  * @param type $objet2
+  * @return tableau
+  * 
+  */
+    
     function verif($row1, $row2, $objet1, $objet2) 
     {
-        $retour = null ;
+        //Initialisation des variables 
+        $retour = null ; 
         $message = null ;
         $tab = array('ok'=>1,
                      'message'=>''
             ) ;
         try 
         {
+            
+            //Requête de la verif de mail
+            
            $sql = 'SELECT '.$row1.' FROM '.$this->nomTable.' WHERE '.$row1.'="'.$objet1.'"' ;
            $stmt = $this->pdo->prepare($sql);
          
            $stmt->execute() ;
            $retour = $stmt->fetch(PDO::FETCH_ASSOC);
-           if (!empty($retour))
+           if ($retour != false )
            {
   
               $tab['ok'] = 0 ;
@@ -267,12 +281,13 @@ class M_DaoPersonne extends M_DaoGenerique {
                
            }
            
+           //Requête de verif de login
+           
            $sql2 = 'SELECT '.$row2.' FROM '.$this->nomTable.' WHERE '.$row2.'="'.$objet2.'"' ;
            $stmt2 = $this->pdo->prepare($sql2);
            $stmt2->execute() ;
-       
            $retour = $stmt2->fetch(PDO::FETCH_ASSOC);
-            if (!empty($retour))
+            if ($retour != false)
            {
   
               $tab['ok'] = 0 ;
@@ -287,8 +302,9 @@ class M_DaoPersonne extends M_DaoGenerique {
         {
                 echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
+        var_dump($tab) ; 
         return $tab ;
-    
+        
     }
 
 }

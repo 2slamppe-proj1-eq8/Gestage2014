@@ -2,11 +2,25 @@
 <script language="JavaScript" type="text/javascript" src="../bibliotheques/jquery.js"></script>
 <script language="JavaScript" type="text/javascript" src=".../vues/javascript/ajax.inc.js"></script>
 
+<?php 
+
+    if($_GET['action'] == 'echec' )
+    {
+        $message = "<p style='color:red;'>Echec lors de la création de la personne, l'email ou le login existe déjà ! </p>" ;
+    }
+    else 
+    {
+        $message = '' ;
+    }
+    
+
+?>
 
 <!-- VARIABLES NECESSAIRES -->
 
 <!-- $this->message : à afficher sous le formulaire -->
 <form method="post" action=".?controleur=AdminPersonnes&action=validationCreerPersonne" name="CreateUser">
+    <?php echo '<h3>'.$message.'</h3>' ; ?>
     <h1>Creation d'une personne</h1>
     <!-- Choix du type de compte pour afficher les différentes informations pour créer un compte spécifique -->
     <fieldset>

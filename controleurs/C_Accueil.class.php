@@ -15,5 +15,7 @@ class C_Accueil extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login'));
         $this->vue->afficher();
     }
+    
+   
 
 }

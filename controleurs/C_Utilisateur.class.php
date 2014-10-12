@@ -72,6 +72,11 @@ class C_Utilisateur extends C_ControleurGenerique {
         }
         $this->vue->afficher();
     }
+    
+    function afficherEntreprise()
+    {
+        
+    }
 
 }
 

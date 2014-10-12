@@ -153,7 +153,6 @@ function valider()
 
     if (ok == 1) {
         
-      alert("Personne ajoutée !");
        document.submit();
        
 

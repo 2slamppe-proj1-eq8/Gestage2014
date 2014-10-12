@@ -69,19 +69,39 @@ class C_AdminPersonnes extends C_ControleurGenerique {
        $daoPers->getPdo() ;
    
        //SI LE MAIL ET LE LOGIN N'EXISTE PAS, CREATION DE LA PERSONNE
-       if ($verif['ok'] !=0)
+       if ($verif['ok'] == 1 )
        {
         if ($daoPers->insert($pers) == true )
         {
-            header('Location: http://localhost/sites/Gestage2014/public');
+            header('Location: http://localhost/sites/Gestage2014/public/?controleur=AdminPersonnes&action=validation');
+            echo '<p>Etudiant ajoutée ! </p>' ;
         }  
        }
        else 
        {
-           echo $verif['message'] ; 
+           header('Location: http://localhost/sites/Gestage2014/public/?controleur=AdminPersonnes&action=echec');
+       
        }
-     
+       
+   
     }
+    function validation()
+    {
+            
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+        $this->vue->ecrireDonnee('centre',"../vues/includes/adminPersonnes/validation.php");
+        // les données
+        $this->vue->ecrireDonnee('titreVue',"GestStage : Accueil");
+        $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login'));
+        $this->vue->afficher();
+    }
+    
+    function echec()
+    {
+      $this->creerPersonne() ;
+    }
+    
+    
 }
     
 
