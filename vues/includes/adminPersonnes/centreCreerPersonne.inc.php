@@ -1,4 +1,4 @@
-<script language="JavaScript" type="text/javascript" src="../vues/javascript/fonctionsJavascript.inc.js"></script>
+ <script language="JavaScript" type="text/javascript" src="../vues/javascript/fonctionsJavascript.inc.js"></script>
 <script language="JavaScript" type="text/javascript" src="../bibliotheques/jquery.js"></script>
 <script language="JavaScript" type="text/javascript" src=".../vues/javascript/ajax.inc.js"></script>
 

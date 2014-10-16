@@ -12,5 +12,6 @@
 
 <!-- $this->message : à afficher sous le formulaire -->
 <form method="post" action=".?controleur=Utilisateur&action=validationAjoutStage" name="CreateInterShipo">
+    <label
    
 </form>

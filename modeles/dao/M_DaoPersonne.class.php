@@ -131,7 +131,34 @@ class M_DaoPersonne extends M_DaoGenerique {
         }
         return $retour;
     }
+    
+    function getAllByRole($role)
+    {
+        $retour = null ;
+        try
+        {
+            $sql = "SELECT * FROM $this->nomTable P ";
+ 
+            $sql .= "WHERE IDROLE = ".$role;   
+            
+ 
+            $queryPrepare = $this->pdo->prepare($sql);
+              if ($queryPrepare->execute()) {
+                // si la requête réussit :
+                // initialiser le tableau d'objets à retourner
+                $retour = array();
+                // pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+                    // construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+                    // ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+              }
+        } catch (Exception $ex) {
 
+        }
+    }
     // eager-fetching
     function getOneByLogin($valeurLogin) {
         $retour = null;

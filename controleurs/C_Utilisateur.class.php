@@ -75,6 +75,7 @@ class C_Utilisateur extends C_ControleurGenerique {
     
     function ajoutStage()
     {
+        //VUE
         $fichier = "../vues/templates/template.inc.php" ;
         $centre = "../vues/includes/utilisateur/centreAjoutStage.php" ;
         $titre = 'Ajouter un stage' ;
@@ -85,6 +86,11 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login')); 
         $this->vue->afficher() ;
         
+        //Mémoriser les personnes
+        
+        $etudiants = New M_DaoPersonne();
+        $etudiant = $etudiants->getAllByRole(4) ;
+        var_dump($etudiant) ;
         
     
     }
