@@ -73,9 +73,20 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->afficher();
     }
     
-    function afficherEntreprise()
+    function ajoutStage()
     {
+        $fichier = "../vues/templates/template.inc.php" ;
+        $centre = "../vues/includes/utilisateur/centreAjoutStage.php" ;
+        $titre = 'Ajouter un stage' ;
+        $this->vue = new V_Vue($fichier) ;
+        $this->vue->ecrireDonnee('gauche', '../vues/templates/gauche.inc.php') ;
+        $this->vue->ecrireDonnee('titreVue', $titre) ;
+        $this->vue->ecrireDonnee('centre',"../vues/includes/utilisateur/centreAjoutStage.php");
+        $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login')); 
+        $this->vue->afficher() ;
         
+        
+    
     }
 
 }

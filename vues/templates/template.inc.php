@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../vues/css/styleLargeurFixe.css" />
         <script type="text/javascript" src="../vues/javascript/fonctionsJavascript.inc.js"></script>
-        <title><?php echo $this->lireDonnee('titreVue'); ?></title>
+        <title><?php echo $this->lireDonnee('titreVue');
+        ?></title>
     </head>
     <body>
         <div id="global">

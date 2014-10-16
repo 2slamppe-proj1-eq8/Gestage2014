@@ -6,6 +6,7 @@ abstract class C_ControleurGenerique {
 
     function setVue($vue) {
         $this->vue = $vue;
+        
     }
 
 }

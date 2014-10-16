@@ -14,9 +14,9 @@ $listePrenom=array('MAEL','DAVID','FLORIAN','JEREMY','EMILIE','PIERRE','BENJAMIN
 $listeNom=array('ANDRE','BONNET','BRETIN','BROYARD','CHANSON','CHARRIAU','CORBINEAU','COUTEAU','DESIREST','DION','DROUAUD','DURIEUX','FRENEAU','LEDUC','LEPEE','LOISEAU','MACHOURI','PERROIN','REDOR','RIO','SAINDRENAN','THIBEAU','TOUCHARD') ;
 
 for ($i = 0; $i <= 22; $i++) {
-      $mail = strtolower(ucfirst($listePrenom[$i]).$listeNom[$i].'@mail.fr') ;
-      $pseudo =  strtolower(ucfirst($listePrenom[$i]).$listeNom[$i] ) ;
-      $mdp = sha1(strtolower(ucfirst($listePrenom[$i]).$listeNom[$i] )) ;
+      $mail = strtolower(substr($listePrenom[$i], 0, 1).$listeNom[$i].'@mail.fr') ;
+      $pseudo =  strtolower(substr($listePrenom[$i], 0, 1).$listeNom[$i] ) ;
+      $mdp = sha1(strtolower(substr($listePrenom[$i],0,1).$listeNom[$i] )) ;
     if($i%2==0){
         
       

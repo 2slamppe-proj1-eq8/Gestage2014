@@ -272,7 +272,7 @@ class M_DaoPersonne extends M_DaoGenerique {
          
            $stmt->execute() ;
            $retour = $stmt->fetch(PDO::FETCH_ASSOC);
-           if ($retour != false )
+           if ($retour != false)
            {
   
               $tab['ok'] = 0 ;
@@ -302,7 +302,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         {
                 echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
-        var_dump($tab) ; 
+ 
         return $tab ;
         
     }
