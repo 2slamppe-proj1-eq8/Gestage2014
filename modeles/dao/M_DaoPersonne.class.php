@@ -33,6 +33,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         );
         return $retour;
     }
+  
 
     /**
      * Prépare une liste de paramètres pour une requête SQL UPDATE ou INSERT
@@ -132,32 +133,40 @@ class M_DaoPersonne extends M_DaoGenerique {
         return $retour;
     }
     
-    function getAllByRole($role)
+    function getAllByRole($rows,$role)
     {
+        
         $retour = null ;
         try
         {
-            $sql = "SELECT * FROM $this->nomTable P ";
+            $sql = "SELECT " ;
+            foreach($rows as $v)
+            {
+                
+                $sql .= $v." , ";
+               
+            }
+            $sql = substr($sql, 0, strlen($sql)-2 ) ;
+           
+    
+            $sql .= "FROM $this->nomTable P " ;
  
             $sql .= "WHERE IDROLE = ".$role;   
+            var_dump($sql) ;
             
  
             $queryPrepare = $this->pdo->prepare($sql);
               if ($queryPrepare->execute()) {
-                // si la requête réussit :
-                // initialiser le tableau d'objets à retourner
-                $retour = array();
-                // pour chaque enregistrement retourné par la requête
-                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
-                    // construir un objet métier correspondant
-                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
-                    // ajouter l'objet au tableau
-                    $retour[] = $unObjetMetier;
-                }
+                    $retour =$queryPrepare->fetchAll() ;
+                    
+                  
+           
               }
         } catch (Exception $ex) {
 
         }
+        var_dump($retour) ;
+        return $retour ;
     }
     // eager-fetching
     function getOneByLogin($valeurLogin) {

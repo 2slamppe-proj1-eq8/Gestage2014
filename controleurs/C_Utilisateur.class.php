@@ -75,6 +75,12 @@ class C_Utilisateur extends C_ControleurGenerique {
     
     function ajoutStage()
     {
+        $daoPers = New M_DaoPersonne();
+        $daoPers->connecter();
+        $rows = array('nom','prenom') ;
+        $etudiant = $daoPers->getAllByRole($rows, 4) ;
+  
+  
         //VUE
         $fichier = "../vues/templates/template.inc.php" ;
         $centre = "../vues/includes/utilisateur/centreAjoutStage.php" ;
@@ -88,9 +94,7 @@ class C_Utilisateur extends C_ControleurGenerique {
         
         //Mémoriser les personnes
         
-        $etudiants = New M_DaoPersonne();
-        $etudiant = $etudiants->getAllByRole(4) ;
-        var_dump($etudiant) ;
+     
         
     
     }
