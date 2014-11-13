@@ -99,6 +99,33 @@ class C_Utilisateur extends C_ControleurGenerique {
     
     }
 
-}
 
-?>
+        
+
+    function creerEntreprise()
+   {
+        $daoPers = New M_DaoPersonne();
+        $daoPers->connecter();
+        $rows = array('nom','prenom') ;
+        $etudiant = $daoPers->getAllByRole($rows, 4) ;
+  
+  
+        //VUE
+        $fichier = "../vues/templates/template.inc.php" ;
+        $centre = "../vues/includes/utilisateur/centreAjoutEntreprise.php" ;
+        $titre = 'Ajouter une entreprise' ;
+        $this->vue = new V_Vue($fichier) ;
+        $this->vue->ecrireDonnee('gauche', '../vues/templates/gauche.inc.php') ;
+        $this->vue->ecrireDonnee('titreVue', $titre) ;
+        $this->vue->ecrireDonnee('centre',"../vues/includes/utilisateur/centreAjoutEntreprise.php");
+        $this->vue->ecrireDonnee('loginAuthentification',MaSession::get('login')); 
+        $this->vue->afficher() ;
+        
+        //Mémoriser les personnes
+
+   }
+   
+}
+   
+   
+ ?>
