@@ -19,7 +19,7 @@ class M_Personne {
     private $login;
     private $mdp;
 
-    function __construct($id, $specialite, $role, $civilite, $nom, $prenom, $numTel, $mail, $mobile, $etudes, $formation, $login, $mdp) {
+    function __construct($id=null, $specialite=null, $role=null, $civilite=null, $nom=null, $prenom=null, $numTel=null, $mail=null, $mobile=null, $etudes=null, $formation=null, $login=null, $mdp=null) {
         $this->id = $id;
         $this->specialite = $specialite;
         $this->role = $role;
