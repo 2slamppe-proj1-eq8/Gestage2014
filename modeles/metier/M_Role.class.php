@@ -8,8 +8,8 @@
 class M_Role {
 
     private $id; // type : int
-    private $rang; // type : int
-    private $libelle; // ADMINISTRATEUR, PROFESSEUR, ETUDIANT, UTILISATEUR, CONTACT
+    private $idSpec; // type : int
+    private $numFiliere; // ADMINISTRATEUR, PROFESSEUR, ETUDIANT, UTILISATEUR, CONTACT
 
     function __construct($id, $rang, $libelle) {
         $this->id = $id;

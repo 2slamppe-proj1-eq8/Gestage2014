@@ -28,7 +28,7 @@
         <legend>Type de compte</legend>
         <input type="hidden" readonly="readonly" name="id" id="id"></input>
         <label for="role">R&ocirc;le :</label>
-        <select OnChange="javascript:choixRole();"  name="role" id="role"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+        <select  name="role" id="role"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
             <option value=""></option>
 
             <?php

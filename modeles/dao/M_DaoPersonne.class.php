@@ -1,4 +1,4 @@
-<?php
+l<?php
 
 class M_DaoPersonne extends M_DaoGenerique {
 
@@ -80,7 +80,7 @@ class M_DaoPersonne extends M_DaoGenerique {
      * @return tableau-associatif d'objets : un tableau d'instances de la classe métier
      */
     function getAll() {
-        echo "--- getAll redéfini ---<br/>";
+       
         $retour = null;
         // Requête textuelle
         $sql = "SELECT * FROM $this->nomTable P ";
@@ -90,22 +90,18 @@ class M_DaoPersonne extends M_DaoGenerique {
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
             // exécuter la requête PDO
-            if ($queryPrepare->execute()) {
-                // si la requête réussit :
-                // initialiser le tableau d'objets à retourner
-                $retour = array();
-                // pour chaque enregistrement retourné par la requête
-                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
-                    // construir un objet métier correspondant
-                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
-                    // ajouter l'objet au tableau
-                    $retour[] = $unObjetMetier;
-                }
-            }
+            // extraire l'enregistrement retourné par la requête
+                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
+                // construire l'objet métier correspondant
+                $retour = $this->enregistrementVersObjet($enregistrement);
+           
         } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
-        return $retour;
+       
+      var_dump($retour)
+;        return $retour;
+       
     }
 
     // eager-fetching
@@ -139,7 +135,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         $retour = null ;
         try
         {
-            $sql = "SELECT " ;
+            $sql = "SELECT IDPERSONNE, " ;
             foreach($rows as $v)
             {
                 
@@ -148,11 +144,11 @@ class M_DaoPersonne extends M_DaoGenerique {
             }
             $sql = substr($sql, 0, strlen($sql)-2 ) ;
            
-    
+           
             $sql .= "FROM $this->nomTable P " ;
  
             $sql .= "WHERE IDROLE = ".$role;   
-            var_dump($sql) ;
+   
             
  
             $queryPrepare = $this->pdo->prepare($sql);
@@ -165,7 +161,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         } catch (Exception $ex) {
 
         }
-        var_dump($retour) ;
+        
         return $retour ;
     }
     // eager-fetching

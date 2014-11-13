@@ -46,7 +46,9 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('titreVue', "Modification de vos informations");
         $this->vue->ecrireDonnee('centre',"../vues/includes/utilisateur/centreValiderModifierMesInformations.inc.php");
         $daoPers = new M_DaoPersonne();
+        
         $daoPers->connecter();
+         
         // récupérer les données du formulaire l'identifiant de l'utilisateur courant
         $id = $_GET["id"];
 
@@ -77,15 +79,28 @@ class C_Utilisateur extends C_ControleurGenerique {
     {
         $daoPers = New M_DaoPersonne();
         $daoPers->connecter();
+        $pdo = $daoPers->getPdo();
         $rows = array('nom','prenom') ;
         $etudiant = $daoPers->getAllByRole($rows, 4) ;
-  
+        
+
+        $classe= New M_DaoClass ;
+        
+        $classe->setPdo($pdo);
+        
+     var_dump($daoPers->getAllByRole($rows, 4)) ;
+      
+        
+   
   
         //VUE
         $fichier = "../vues/templates/template.inc.php" ;
         $centre = "../vues/includes/utilisateur/centreAjoutStage.php" ;
         $titre = 'Ajouter un stage' ;
+  
         $this->vue = new V_Vue($fichier) ;
+        $this->vue->ecrireDonnee('listeClasse', $classe->getAll());
+        $this->vue->ecrireDonnee('listeNoms', $daoPers->getAllByRole($rows, 4));
         $this->vue->ecrireDonnee('gauche', '../vues/templates/gauche.inc.php') ;
         $this->vue->ecrireDonnee('titreVue', $titre) ;
         $this->vue->ecrireDonnee('centre',"../vues/includes/utilisateur/centreAjoutStage.php");
