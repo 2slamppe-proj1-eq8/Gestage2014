@@ -82,13 +82,17 @@ class C_Utilisateur extends C_ControleurGenerique {
         $pdo = $daoPers->getPdo();
         $rows = array('nom','prenom') ;
         $etudiant = $daoPers->getAllByRole($rows, 4) ;
-        
+        $prof = $daoPers->getAllByRole($rows, 3) ;
 
         $classe= New M_DaoClass ;
         
         $classe->setPdo($pdo);
         
-     var_dump($daoPers->getAllByRole($rows, 4)) ;
+        $orga = New M_DaoOrganisation ;
+        $orga->setPdo($pdo);
+        $orgas = $orga->getAll() ;
+    
+
       
         
    
@@ -100,7 +104,9 @@ class C_Utilisateur extends C_ControleurGenerique {
   
         $this->vue = new V_Vue($fichier) ;
         $this->vue->ecrireDonnee('listeClasse', $classe->getAll());
-        $this->vue->ecrireDonnee('listeNoms', $daoPers->getAllByRole($rows, 4));
+        $this->vue->ecrireDonnee('listeNoms', $etudiant);
+        $this->vue->ecrireDonnee('listeProf', $prof) ;
+         $this->vue->ecrireDonnee('listeOrgas', $orgas) ;
         $this->vue->ecrireDonnee('gauche', '../vues/templates/gauche.inc.php') ;
         $this->vue->ecrireDonnee('titreVue', $titre) ;
         $this->vue->ecrireDonnee('centre',"../vues/includes/utilisateur/centreAjoutStage.php");
@@ -113,6 +119,75 @@ class C_Utilisateur extends C_ControleurGenerique {
         
     
     }
+    
+    function validationAjoutStage()
+    {
+        var_dump($_POST) ;
+        
+        $daoPers = New M_DaoPersonne();
+        $daoPers->connecter();
+        $pdo = $daoPers->getPdo();
+        
+        //Verif Maître de stage
+        $nom = $_POST['nomMaster'] ;
+        $prenom = $_POST['prenomMaster'] ;
+        $test = $daoPers->getOnByName($nom, $prenom) ;
+      
+        //RECUPERATION DE L'ID DU MAITRE DE STAGE
+        if(!empty($test))
+        {
+            $idMaster=$daoPers->getIdPers($nom,$prenom) ;
+            $idMaster = $idMaster['IDPERSONNE'] ;
+           
+        }
+     
+        
+        //RECUPERATION DE L'ID DE L'ETUDIANT
+         $nomEtudiant =$_POST['nomEtudiant'] ;
+         $prenomEtudiant = $_POST['prenomEtudiant'] ;
+         $idEtudiant = $daoPers->getIdPers($nomEtudiant, $prenomEtudiant) ;
+         $idEtudiant = $idEtudiant['IDPERSONNE'] ;
+         //RECUPERATION DE L'ID DU PROFESSEUR
+         $nomProf =$_POST['nomProf'] ;
+         $prenomProf = $_POST['prenomProf'] ;
+         $idProf = $daoPers->getIdPers($nomProf, $prenomProf) ;
+         $idProf = $idProf['IDPERSONNE'] ;
+         
+         //Instanciation du stage
+         
+         $stage = new M_DaoStage() ;
+         
+         //INITIALISATION DES VARIABLES
+    
+      $classe= $_POST['classe'] ;
+      $anneScol= $_POST['anneeScol'] ;
+      $idOrga= $_POST['nomOrgas'] ;
+      $dateDebut= $_POST['dateDebut'] ;
+      $dateFin= $_POST['dateFin'] ;
+      $dateVisite= $_POST['dateVisite'] ;
+      $ville= $_POST['ville'] ;
+      
+     
+      
+     function splitDate($date)
+     {
+             list($month, $day, $year) = split('[/.-]', $date);
+             $date = $year.'-'.$month.'-'.$day ;
+        
+             return $date ;
+     }
+       
+   
+    $dateDebut= splitDate($dateDebut) ;
+    $dateFin= splitDate($dateDebut) ;  
+    $dateVisite= splitDate($dateDebut) ;
+    
+    $Unstage = new M_Stage(null,$classe,$anneScol,$idEtudiant,$idProf,$idOrga,$idMaster,$dateDebut,$dateFin,$dateVisite,$ville);
+    var_dump($Unstage) ; 
+        $stage->insert($UnStage) ;
+               
+    }
+  
 
 }
 

@@ -99,7 +99,7 @@ class M_DaoPersonne extends M_DaoGenerique {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
        
-      var_dump($retour)
+ 
 ;        return $retour;
        
     }
@@ -161,6 +161,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         } catch (Exception $ex) {
 
         }
+      
         
         return $retour ;
     }
@@ -183,6 +184,47 @@ class M_DaoPersonne extends M_DaoGenerique {
                 // construire l'objet métier correspondant
                 $retour = $this->enregistrementVersObjet($enregistrement);
             }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    function getOnByName($nom,$prenom) {
+        $retour = null;
+     
+        try {
+            // Requête textuelle
+            $sql = "SELECT nom,prenom FROM $this->nomTable P ";
+            $sql .= "WHERE NOM =:nom AND P.prenom=:prenom";
+             $stmt = $this->pdo->prepare($sql);
+            // préparer la requête PDO
+       if ($stmt->execute(array(':nom' => $nom, ':prenom' => $prenom))) {
+        
+                $retour = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+     
+        return $retour;
+    }
+    function getIdPers($nom, $prenom)
+    {
+         $retour = null;
+     
+        try {
+            // Requête textuelle
+            $sql = "SELECT IDPERSONNE FROM $this->nomTable P ";
+            $sql .= "WHERE NOM =:nom AND P.prenom=:prenom";
+             $stmt = $this->pdo->prepare($sql);
+            // préparer la requête PDO
+       if ($stmt->execute(array(':nom' => $nom, ':prenom' => $prenom))) {
+        
+                $retour = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            
         } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
@@ -273,7 +315,7 @@ class M_DaoPersonne extends M_DaoGenerique {
         } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
-        return $retour;
+        return $retour ; 
     }
     
  /**
