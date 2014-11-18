@@ -326,58 +326,7 @@ function validerE()
 }
 
 
-function validerStage()
-{
-    var ok = 1;
 
-
-    if (document.getElementById('date_debut').value == "")
-    {
-        alert("Veuillez indiquer une date de debut !");
-        ok = 0;
-        document.getElementById('date_debut').focus();
-        return false;
-    }
-
-    if (document.getElementById('date_fin').value == "")
-    {
-        alert("Veuillez indiquer une date de fin !");
-        ok = 0;
-        document.getElementById('date_fin').focus();
-        return false;
-    }
-
-    if (document.getElementById('date_visite').value == "")
-    {
-        alert("Veuillez indiquer une date de visite !");
-        ok = 0;
-        document.getElementById('date_visite').focus();
-        return false;
-    }
-
-    if (document.getElementById('ville').value == "")
-    {
-        alert("Veuillez indiquer une ville!");
-        ok = 0;
-        document.getElementById('ville').focus();
-        return false;
-    }
-
-    if (isNaN(document.getElementById('participation_ccf').value))
-    {
-        alert("La participation CCF ne peut être que composé de chiffres !");
-        ok = 0;
-        document.getElementById('participation_ccf').focus();
-        return false;
-    }
-
-    if (ok == 1) {
-
-        document.submit();
-
-    }
-
-}
 
 
 

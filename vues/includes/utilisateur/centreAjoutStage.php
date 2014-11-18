@@ -6,16 +6,19 @@
 <h2 style="text-align: center ;"> Ajout d'un stage</h2>
 
 <?php 
+if($this->lireDonnee('message') !=' ')
+{
 echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
+}
 ?>
 <h3>Etudiant</h3>
 <hr>
 <br/>
-<form method="post" action=".?controleur=Utilisateur&action=validationAjoutStage" name="CreateInterShipo">
+<form method="post" action=".?controleur=Utilisateur&action=validationAjoutStage" name="CreateInterShipo" id="ajoutStage">
     <p>
     <label>Classe</label>
-    <select name="classe" id="classe">
-        <option value=" "></option>
+    <select name="classe" id="classe" class="required">
+        <option value="-1"></option>
         
           <?php
     
@@ -29,14 +32,14 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
             ?>  
          </select>
             <label> Annee scolaire</label>
-            <input type="text" name="anneeScol" id="anneeScol">
+            <input type="text" name="anneeScol" id="anneeScol" class="required">
         
     </select>
     </p>
     <p>
     <label>Nom de l'étudiant</label>
-     <select  name="nomEtudiant" id="nomEtud"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value=""></option>
+     <select  name="nomEtudiant" id="nomEtud" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+            <option value="-1"></option>
 
                  <?php  
             
@@ -57,8 +60,8 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
     </p>
     <p>
     <label>Prenom de l'étudiant</label>
-     <select  name="prenomEtudiant" id="prenomEtud"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value=""></option>
+     <select  name="prenomEtudiant" id="prenomEtud" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+            <option value="-1"></option>
             <?php  
             
        for ($i = 0 ; $i < sizeof($this->lireDonnee('listeNoms')) ; $i++)
@@ -77,8 +80,8 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
     </p>
   
             <label>Nom du professeur responsable de l'étudiant</label>
-     <select  name="nomProf" id="nomProf"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value=""></option>
+     <select  name="nomProf" id="nomProf" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+            <option value="-1"></option>
             <?php  
             
        for ($i = 0 ; $i < sizeof($this->lireDonnee('listeProf')) ; $i++)
@@ -95,8 +98,8 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
             ?>  
              </select>
             <label>Prenom du professeur responsable de l'étudiant</label>
-     <select  name="prenomProf" id="prenomProf"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value=""></option>
+     <select  name="prenomProf" id="prenomProf" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+            <option value="-1"></option>
             <?php  
             
        for ($i = 0 ; $i < sizeof($this->lireDonnee('listeProf')) ; $i++)
@@ -114,18 +117,18 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
              </select>
             
             <label> Nom du maître de stage </label>
-            <input type="text" name="nomMaster" id="nomMaster" />
+            <input type="text" name="nomMaster" id="nomMaster" required />
             
             <label> Prénom du maître de stage </label>
-            <input type="text" name="prenomMaster" id="prenomMaster" />
+            <input type="text" name="prenomMaster" id="prenomMaster" required />
             
             <label> Nom de l'entreprise</label>
        
              
-           <select  name="nomOrgas" id="nomOrgas"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value="" id=""></option>
+           <select  name="nomOrgas" id="nomOrgas" class="required"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+            <option value="-1" id=""></option>
             <?php  
-            
+           
      
          
                 foreach($this->lireDonnee('listeOrgas') as $nom) 
@@ -138,15 +141,15 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
             ?>  
             </select>
             <label> Date de début</label>
-            <input type="date" name="dateDebut"class="date" id="dateDebut"/>
+            <input type="date" name="dateDebut"class="date" id="dateDebut"  />
             <label> date de fin </label>
-            <input type="date" name="dateFin" class="date" id="dateFin"/>
+            <input type="date" name="dateFin" class="date" id="dateFin" required />
             
             <label> Date visite de stage </label>
-            <input type="date" name="dateVisite" class="date" id="dateVisit">
+            <input type="date" name="dateVisite" class="date" id="dateVisit" required />
             
             <label> Ville </label>
-            <input type="text" name="ville" id="Ville" />
+            <input type="text" name="ville" id="Ville" required />
            
             <label></label><input type="submit" value="Valider" onclick="return validerStage()" />
 </form>
@@ -156,6 +159,15 @@ echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script>
   $(function() {
-        $( ".date" ).datepicker();
+        $(".date").datepicker();
   });
   </script>
+  <script>
+   if($('select').val()=='-1'){
+    alert('Aucun champ ne doit être vide, recommencez ');
+    return false;
+}
+      </script>
+      <script>
+          if(documentG)
+          </script>

@@ -10,7 +10,16 @@ body {
     background-position:center top;
     background-attachment:fixed;
 }
-
+.mess-error
+{
+    color :#fff ;
+    background-color :  #f44336 ;
+    text-align :center ;
+    height : 30px ;
+    font-size : 15px ;
+    padding-top : 10px ;
+    font-decoration : bold ;
+}
 
 #global{
     margin-top:25px;

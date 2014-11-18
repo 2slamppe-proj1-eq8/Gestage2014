@@ -133,10 +133,11 @@ class C_Utilisateur extends C_ControleurGenerique {
         $nom = $_POST['nomMaster'];
         $prenom = $_POST['prenomMaster'];
         
-        $test = $daoPers->getOnByName($nom, $prenom) ;
-        //RECUPERATION DE L'ID DU MAITRE DE STAGE
-        if(!empty($test))
+        $verifMaster = $daoPers->getOnByName($nom, $prenom) ;
+        //Verification que le maître de stage existe
+        if(!empty($verifMaster))
         {
+            //RECUPERATION DE L'ID DU MAITRE DE STAGE
             $idMaster=$daoPers->getIdPers($nom,$prenom) ;
             $idMaster = intval($idMaster['IDPERSONNE']) ;
            
@@ -153,6 +154,8 @@ class C_Utilisateur extends C_ControleurGenerique {
                     $nomProf =$_POST['nomProf'] ;
                     $prenomProf = $_POST['prenomProf'] ;
                     $idProf = $daoPers->getIdPers($nomProf, $prenomProf) ;
+                    if($idProf)
+                    {
                     $idProf = intval($idProf['IDPERSONNE']) ;
 
                     //Instanciation du stage
@@ -175,21 +178,25 @@ class C_Utilisateur extends C_ControleurGenerique {
                     $dateFin= splitDate($dateFin) ;  
                     $dateVisite= splitDate($dateVisite) ;
                     
+                    if($idOrga != -1)
+                    { 
                     //COMPARAISON DES DATES
                     $ok = 1 ;
                     
-                    if($dateFin > $dateDebut)
+                    if($dateFin < $dateDebut)
                     {
                         $message = "La date de fin de stage doit être superieur à la date du début" ;
                         $ok = 0 ;
                     }
                     
                   
-                    if($dateVisite > $dateDebut && $dateVisite < $dateFin) 
+                    if(($dateVisite < $dateDebut) && ($dateVisite > $dateFin)) 
                     {
                         $message = "La date de visite doit se trouver entre la date du début et la date de fin" ;
                         $ok = 0 ;
                     }
+                    
+                    //Si les dates correspondent on envoie
                     
                     if ($ok == 1) 
                     {
@@ -197,14 +204,14 @@ class C_Utilisateur extends C_ControleurGenerique {
                         //Initialisation du pdo
                        $stage->connecter() ;
                        $stage->getPdo() ;
-
+                       
                        //Creation de l'objet stage
                        $Unstage = new M_Stage(null,$anneScol,$idEtudiant,$idProf,$idOrga,$idMaster,$dateDebut,$dateFin,$dateVisite,$ville);
 
                        //Insertion dans la base de donnée
                        if($stage->insert($Unstage)=='true')
                        {
-                          $message = "Le stage à bien été enregister" ;
+                          $message = "Le stage à bien été enregisté" ;
 
                        }
 
@@ -216,6 +223,14 @@ class C_Utilisateur extends C_ControleurGenerique {
                     {
                         $message = $message ;
                     }
+                    }else
+                    {
+                        $message="Le nom de l'entreprise doit être remplis" ;
+                    }
+                   } else
+                   {
+                       $message ="Le nom et le prenom du professeur ne correspondent pas" ;
+                   }
                    
              } else
              {
