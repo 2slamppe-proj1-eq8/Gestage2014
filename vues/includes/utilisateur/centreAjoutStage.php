@@ -5,15 +5,17 @@
 
 <h2 style="text-align: center ;"> Ajout d'un stage</h2>
 
-
+<?php 
+echo '<p class="mess-error">'.$this->lireDonnee('message').'</p>' ;
+?>
 <h3>Etudiant</h3>
 <hr>
 <br/>
 <form method="post" action=".?controleur=Utilisateur&action=validationAjoutStage" name="CreateInterShipo">
     <p>
     <label>Classe</label>
-    <select name="classe">
-        <option value=""></option>
+    <select name="classe" id="classe">
+        <option value=" "></option>
         
           <?php
     
@@ -27,13 +29,13 @@
             ?>  
          </select>
             <label> Annee scolaire</label>
-            <input type="text" name="anneeScol">
+            <input type="text" name="anneeScol" id="anneeScol">
         
     </select>
     </p>
     <p>
     <label>Nom de l'étudiant</label>
-     <select  name="nomEtudiant" id="nom"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+     <select  name="nomEtudiant" id="nomEtud"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
             <option value=""></option>
 
                  <?php  
@@ -55,7 +57,7 @@
     </p>
     <p>
     <label>Prenom de l'étudiant</label>
-     <select  name="prenomEtudiant" id="prenom"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+     <select  name="prenomEtudiant" id="prenomEtud"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
             <option value=""></option>
             <?php  
             
@@ -75,7 +77,7 @@
     </p>
   
             <label>Nom du professeur responsable de l'étudiant</label>
-     <select  name="nomProf" id="prenom"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+     <select  name="nomProf" id="nomProf"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
             <option value=""></option>
             <?php  
             
@@ -93,7 +95,7 @@
             ?>  
              </select>
             <label>Prenom du professeur responsable de l'étudiant</label>
-     <select  name="prenomProf" id="prenom"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
+     <select  name="prenomProf" id="prenomProf"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
             <option value=""></option>
             <?php  
             
@@ -112,16 +114,16 @@
              </select>
             
             <label> Nom du maître de stage </label>
-            <input type="text" name="nomMaster" />
+            <input type="text" name="nomMaster" id="nomMaster" />
             
             <label> Prénom du maître de stage </label>
-            <input type="text" name="prenomMaster" />
+            <input type="text" name="prenomMaster" id="prenomMaster" />
             
             <label> Nom de l'entreprise</label>
        
              
            <select  name="nomOrgas" id="nomOrgas"><!-- le OnChange éxécute la fonction qui affichera ou non le formulaire etudiant -->
-            <option value=""></option>
+            <option value="" id=""></option>
             <?php  
             
      
@@ -136,17 +138,17 @@
             ?>  
             </select>
             <label> Date de début</label>
-            <input type="date" name="dateDebut"class="date">
+            <input type="date" name="dateDebut"class="date" id="dateDebut"/>
             <label> date de fin </label>
-            <input type="date" name="dateFin" class="date">
+            <input type="date" name="dateFin" class="date" id="dateFin"/>
             
             <label> Date visite de stage </label>
-            <input type="date" name="dateVisite" class="date">
+            <input type="date" name="dateVisite" class="date" id="dateVisit">
             
             <label> Ville </label>
-            <input type="text" name="ville" />
+            <input type="text" name="ville" id="Ville" />
            
-            <label></label><input type="submit" value="Valider" />
+            <label></label><input type="submit" value="Valider" onclick="return validerStage()" />
 </form>
 
  <script src="//code.jquery.com/jquery-1.10.2.js"></script>

@@ -34,7 +34,88 @@ function choixRole() {
     }
 }
 
+//valider creation stage
+function validerStage()
+{
+     var ok = 1;
+     if (document.getElementById('classe').options[0] == " " ){
+        alert('Veuillez indiquer la classe'); 
+        ok = 0 ;
+        return false
+    }
+    if (document.getElementById('anneeScol') == "")
+    {
+        alert("Veuillez indiquer l'année scolaire") ;
+        ok = 0 ;
+        return false ;
+    }
+    if (document.getElementById('nomEtud').options[0] == "" )
+    {
+        alert("Veuillez indiquer le nom de l'étudiant"); 
+        ok = 0 ;
+        return false
+    }
+      if (document.getElementById('prenomEtud').options[0] == "" )
+    {
+        alert("Veuillez indiquer le prenom de l'étudiant"); 
+        ok = 0 ;
+        return false
+    }
+       if (document.getElementById('nomProf').options[0] == "" )
+    {
+        alert("Veuillez indiquer le nom du professeur"); 
+        ok = 0 ;
+        return false
+    }
+       if (document.getElementById('prenomProf').options[0] == "" )
+    {
+        alert("Veuillez indiquer le prenom du professeur"); 
+        ok = 0 ;
+        return false
+    }
+     if (document.getElementById('prenomMaster') == "")
+    {
+        alert("Veuillez indiquer le prenom du maître de stage") ;
+        ok = 0 ;
+        return false ;
+    }
+      if (document.getElementById('nomOrgas').options[0] == "" )
+    {
+        alert("Veuillez indiquer le nom de l'organisation"); 
+        ok = 0 ;
+        return false
+    }
+     if (document.getElementById('dateDebut') == "")
+    {
+        alert("Veuillez indiquer la date du début du stage") ;
+        ok = 0 ;
+        return false ;
+    }
+     if (document.getElementById('dateFin') == "")
+    {
+        alert("Veuillez indiquer la date du fin de stage") ;
+        ok = 0 ;
+        return false ;
+    }
+     if (document.getElementById('dateVisit') == "")
+    {
+        alert("Veuillez indiquer la date de visite du stage") ;
+        ok = 0 ;
+        return false ;
+    }
+     if (document.getElementById('Vville') == "")
+    {
+        alert("Veuillez indiquer la ville") ;
+        ok = 0 ;
+        return false ;
+    }
+    if (ok == 1) {
+        
+       document.submit();
+       
 
+    }
+}
 
 
 

@@ -14,9 +14,8 @@ class M_DaoStage extends M_DaoGenerique
     public function enregistrementVersObjet($unEnregistrement) {
         
     }
-  public function ObjetVersEnregistrement($unEnregistrement) {
+  public function ObjetVersEnregistrement($objetMetier) {
       $retour = array(
-          ':numStage' => $objetMetier->getNumStage(),
           ':anneeScol' => $objetMetier->getAnneeScol(),
           ':idEtudiant' => $objetMetier->getIdEtudiant(),
           ':idProfesseur' => $objetMetier->getIdProfesseur(),
@@ -27,6 +26,7 @@ class M_DaoStage extends M_DaoGenerique
           ':dateVisit' => $objetMetier->getDateVisit(),
           ':ville' => $objetMetier->getVille()
           );
+      return $retour ;
         
     }
     public function insert($objetMetier) {
@@ -35,19 +35,17 @@ class M_DaoStage extends M_DaoGenerique
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "NUM_STAGE,ANNEESCOL,IDETUDIANT,IDPROFESSEUR,IDORGANISATION,IDMAITRESTAGE,DATEDEBUT,DATEFIN,DATEVISITESTAGE,VILLE";
-            $sql .= "ETUDES,FORMATION,LOGINUTILISATEUR,MDPUTILISATEUR)  ";
+            $sql .= "NUM_STAGE,ANNEESCOL,IDETUDIANT,IDPROFESSEUR,IDORGANISATION,IDMAITRESTAGE,DATEDEBUT,DATEFIN,DATEVISITESTAGE,VILLE) ";
             $sql .= "VALUES (";
-            $sql .= ":numStage, :anneeScol, :idEtudiant, :idProfesseur, :idOrganisation, :idMaster, :dateDebut, :dateFin, ";
+            $sql .= "null, :anneeScol, :idEtudiant, :idProfesseur, :idOrganisation, :idMaster, :dateDebut, :dateFin, ";
             $sql .= ":dateVisit, :ville)";
-            
-            var_dump($sql) ; die() ;
+           
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
          
             // préparer la  liste des paramètres, avec l'identifiant en dernier
             $parametres = $this->objetVersEnregistrement($objetMetier);
-        
+            
            
             // exécuter la requête avec les valeurs des paramètres dans un tableau
             $retour = $queryPrepare->execute($parametres);
