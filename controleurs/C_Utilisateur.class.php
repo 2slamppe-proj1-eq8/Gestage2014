@@ -182,9 +182,12 @@ class C_Utilisateur extends C_ControleurGenerique {
     $dateFin= splitDate($dateDebut) ;  
     $dateVisite= splitDate($dateDebut) ;
     
+     $stage->getPdo() ;
+    
     $Unstage = new M_Stage(null,$classe,$anneScol,$idEtudiant,$idProf,$idOrga,$idMaster,$dateDebut,$dateFin,$dateVisite,$ville);
+
     var_dump($Unstage) ; 
-        $stage->insert($UnStage) ;
+        $stage->insert($Unstage) ;
                
     }
   

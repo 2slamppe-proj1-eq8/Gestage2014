@@ -41,7 +41,7 @@ class M_DaoStage extends M_DaoGenerique
             $sql .= ":numStage, :anneeScol, :idEtudiant, :idProfesseur, :idOrganisation, :idMaster, :dateDebut, :dateFin, ";
             $sql .= ":dateVisit, :ville)";
             
-          
+            var_dump($sql) ; die() ;
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
          
